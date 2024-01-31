@@ -35,6 +35,13 @@ class ShowPosts extends Component
         return redirect()->route('console.edit', ['console' => $console]);
     }
 
+    public function delete($id)
+    {
+        $console = Console::findOrFail($id);
+        $console->delete();
+        return redirect()->route('console.index');
+    }
+
     public function order($sort){
 
         if($this->sort == $sort){

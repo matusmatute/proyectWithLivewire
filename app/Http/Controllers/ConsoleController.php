@@ -94,5 +94,8 @@ class ConsoleController extends Controller
     public function destroy(Console $console)
     {
         //
+
+        $console->delete();
+        
     }
 }
