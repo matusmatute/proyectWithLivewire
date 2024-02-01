@@ -79,6 +79,7 @@ class GameController extends Controller
     public function edit(Game $game)
     {
         //
+        return view('game.edit', ['game' => $game]);
     }
 
     /**
@@ -87,6 +88,38 @@ class GameController extends Controller
     public function update(Request $request, Game $game)
     {
         //
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'developer' => 'required',
+            'publisher' => 'required',
+            'franquice' => 'required',
+            'genere' => 'required',
+            'theme' => 'required',
+            'clasification' => 'required',
+            'type' => 'required',
+            'console_id' => 'required',
+            'release_date' => 'required',
+            'image' => 'required',
+        ]);
+
+        $game->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'developer' => $request->developer,
+            'publisher' => $request->publisher,
+            'franquice' => $request->franquice,
+            'genere' => $request->genere,
+            'theme' => $request->theme,
+            'clasification' => $request->clasification,
+            'type' => $request->type,
+            'console_id' => $request->console_id,
+            'release_date' => $request->release_date,
+            'image' => $request->image,
+
+        ]);
+
+        return redirect()->route('game.index')->with('success', 'Game updated successfully.');
     }
 
     /**

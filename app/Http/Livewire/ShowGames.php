@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Console;
 use App\Models\Game;
 use Livewire\Component;
 
@@ -10,6 +11,7 @@ class ShowGames extends Component
     public $search;
     public $sort = 'id';
     public $direction = 'asc';
+    
 
     public function render()
     {
@@ -19,6 +21,14 @@ class ShowGames extends Component
             ->get();
 
         return view('livewire.show-games', compact('games'));
+    }
+
+ 
+
+   
+    public function create()
+    {
+        return redirect()->route('game.create', ['consoles' => Console::all()]);
     }
 
     public function edit($id)
