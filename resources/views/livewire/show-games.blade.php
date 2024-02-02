@@ -13,6 +13,16 @@
         <x-secondary-button class="mr-auto" wire:click="create">
             {{ __('Create Game') }}
         </x-secondary-button>
+        <label for="console" class="block text-sm font-medium text-gray-700">
+            Select Console
+        </label>
+        <select label="Console" wire:model="searchConsole" >
+            <option value="0">All Consoles</option>
+            @foreach ($consoles as $id => $console)
+                <option value="{{ $id }}" >{{ $console }}</option>
+                
+            @endforeach
+        </select>
         
        
 
@@ -22,13 +32,13 @@
         </div>
        
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 text-white ">
-            <H1> {{ $games->count() }} games</H1>
+            <H1> {{ $gamefor->count() }} games</H1>
             
         </div>
 
 
         <div class="max-w-7xl mx-full sm:px-6 lg:px-8 ">
-            @if ($games->count())
+            
                 <table class="min-w-full bg-white">
                     <thead class="bg-gray-800 text-white">
                         
@@ -59,9 +69,9 @@
                         </tr>
                     </thead>
                     <tbody class="text-gray-700">
-                        @foreach ($games as $game)
+                        @forelse ($gamefor as $game)
                             <tr>
-                                <td class="w-1/3 text-left py-3 px-4 ">{{ $game->id }}</td>
+                                <td class="w-1/3 text-left py-3 px-4 ">{{ $game->console->name }}</td>
                                 <td class="w-1/3 text-left py-3 px-4 ">{{ $game->name }}</td>
                                 <td class="w-1/3 text-left py-3 px-4 ">{{ $game->description }}</td>
                                 <td class="w-1/3 text-left py-3 px-4 ">{{ $game->franquice }}</td>
@@ -81,9 +91,9 @@
                     </tbody>
                    
                 </table>
-            @else
+          
                 <p class="mt-6 text-gray-500">There are no games.</p>
-            @endif
+            
         </div>
         
 </div>

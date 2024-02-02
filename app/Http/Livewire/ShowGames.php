@@ -4,6 +4,8 @@ namespace App\Http\Livewire;
 
 use App\Models\Console;
 use App\Models\Game;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 use Livewire\Component;
 
 class ShowGames extends Component
@@ -11,21 +13,28 @@ class ShowGames extends Component
     public $search;
     public $sort = 'id';
     public $direction = 'asc';
+    public $searchGame = '';
+    public $searchConsole = 0;
+ 
+    public Collection $consoles;
     
+
+    public function mount(): void
+    {
+        $this->consoles = Console::pluck('name', 'id');
+    }
 
     public function render()
     {
-        $games = Game::where('developer', 'like', '%' . $this->search . '%')
-            ->orWhere('name', 'like', '%' . $this->search . '%')
-            ->orderBy($this->sort, $this->direction)
-            ->get();
+       $gamefor = Game::with('console')
+       ->when($this->searchConsole != 0, fn(Builder $query) => $query->where('console_id', $this->searchConsole))
+       ->paginate(100);
 
-        return view('livewire.show-games', compact('games'));
+        return view('livewire.show-games', ['gamefor' => $gamefor]);
+    
+    
     }
 
- 
-
-   
     public function create()
     {
         return redirect()->route('game.create', ['consoles' => Console::all()]);
@@ -40,9 +49,11 @@ class ShowGames extends Component
     public function delete($id)
     {
         $game = Game::findOrFail($id);
-        $game->delete();
+        $game->deleteS();
         return redirect()->route('game.index');
     }
+
+   
 
     public function order($sort)
     {

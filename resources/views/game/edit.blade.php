@@ -35,11 +35,21 @@
                         @enderror
                     </div>
                     <div class="mb-4">
-                        <!-- Add fields for the rest of the game data, similar to the console update form -->
+                        <label for="release_date" class="block text-sm font-medium text-gray-700">Release Date</label>
+                        <input type="date" name="release_date" id="release_date" value="{{ old('release_date', $game->release_date) }}" class="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm">
                     </div>
                     <div class="mb-4">
+                        <label for="developer" class="block text-sm font-medium text-gray-700">Developer</label>
+                        <input type="text" name="developer" id="developer" value="{{ old('developer', $game->developer) }}" class="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm">
+                    </div>
+                    <div class="mb-4">
+                        <label for="publisher" class="block text-sm font-medium text-gray-700">Publisher</label>
+                        <input type="text" name="publisher" id="publisher" value="{{ old('publisher', $game->publisher) }}" class="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm">
+                    </div>
+                    
+                    <div class="mb-4">
                         <label for="image" class="block text-sm font-medium text-gray-700">Image</label>
-                        <input type="file" name="image" id="image" accept="image/*" class="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm">
+                        <input type="file" name="image" id="image" value="{{ old('image', $game->image) }}" accept="image/*" class="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm">
                         @error('image')
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                         @enderror
