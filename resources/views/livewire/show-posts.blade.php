@@ -6,17 +6,17 @@
         </h2>
     </x-slot>
 
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 text-black  py-6 align-middle">
 
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 text-black dark:text-black dark:text-gray-900 ">
+        <div class="lg:px-8 ">
+            <br>
             <x-input label="Search" placeholder="Search..." wire:model="search" class="dark:text-black  sm:max-w-md" />
-
+            <x-secondary-button class="mr-auto" wire:click="indexGame">
+                {{ __('View Game') }}
+            </x-secondary-button>
 
         </div>
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 ">
+        <div class="lg:px-8 ">
             @if ($consoles->count())
-
-
                 <!-- component -->
                 <table class="min-w-full bg-white">
                     <thead class="bg-gray-800 text-white">
@@ -37,6 +37,7 @@
                     </thead>
                     <tbody class="text-gray-700">
                         @foreach ($consoles as $console)
+                        @if ($console->status == '1')
                             <tr>
                                 <td class="w-1/3 text-left py-3 px-4 ">{{ $console->id }}</td>
                                 <td class="w-1/3 text-left py-3 px-4 ">{{ $console->name }}</td>
@@ -46,11 +47,13 @@
                                 <x-secondary-button wire:click="edit({{ $console->id }})">Edit</x-secondary-button>
                                 </td>
                                 <td class="w-1/3 text-left py-3 px-4 ">
-                                    <x-danger-button wire:click="confirm({{ $console->id }})">Delete</x-danger-button>
+                                    <x-danger-button wire:click="delete({{ $console->id }})">Delete</x-danger-button>
                                 </td>
 
                             </tr>
+                            @endif
                         @endforeach
+                        
                     </tbody>
                 </table>
             @else

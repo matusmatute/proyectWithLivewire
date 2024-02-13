@@ -40,6 +40,11 @@ class ShowGames extends Component
         return redirect()->route('game.create', ['consoles' => Console::all()]);
     }
 
+    public function indexConsole()
+    {
+        return redirect()->route('console.index');
+    }
+
     public function edit($id)
     {
         $game = Game::findOrFail($id);
@@ -49,7 +54,10 @@ class ShowGames extends Component
     public function delete($id)
     {
         $game = Game::findOrFail($id);
-        $game->deleteS();
+        // Cambiar el estado del juego a inactivo
+        $game->status = '0';
+        $game->save();
+        
         return redirect()->route('game.index');
     }
 

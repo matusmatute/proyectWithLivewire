@@ -38,8 +38,16 @@ class ShowPosts extends Component
     public function delete($id)
     {
         $console = Console::findOrFail($id);
-        $console->delete();
+        // Cambiar el estado del juego a inactivo
+        $console->status = '0';
+        $console->save();
+        
         return redirect()->route('console.index');
+    }
+
+    public function indexGame()
+    {
+        return redirect()->route('game.index');
     }
 
     public function order($sort){
