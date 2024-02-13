@@ -4,6 +4,8 @@ namespace App\Http\Livewire;
 
 use App\Models\Console;
 use Livewire\Component;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class ShowPosts extends Component
 {
@@ -62,5 +64,21 @@ class ShowPosts extends Component
 
         $this->sort = $sort;
 
+    }
+    public function generatePdf()
+    {
+        // Crea una instancia de Dompdf con opciones personalizadas (si es necesario)
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $dompdf = new Dompdf($options);
+
+        // Renderiza la vista HTML en PDF
+        $html = view('livewire.show-posts')->render();
+        $dompdf->loadHtml($html);
+        $dompdf->render();
+
+        // Genera el PDF y lo descarga en el navegador
+        $dompdf->stream('documento.pdf');
+    
     }
 }
