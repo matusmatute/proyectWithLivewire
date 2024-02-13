@@ -22,6 +22,7 @@ class ConsoleFactory extends Factory
             'name' => $this->faker->word(),
             'manufacturer' => $this->faker->company(),
             'release_date' => $this->faker->date(),
+            'is_active' => $this->faker->numberBetween(0, 1),
         ];
     }
 }

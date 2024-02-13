@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('manufacturer');
             $table->date('release_date');
+            $table->boolean('is_active')->default(1);
             $table->timestamps();
         });
     }
