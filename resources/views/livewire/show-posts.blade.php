@@ -13,6 +13,10 @@
             <x-secondary-button class="mr-auto" wire:click="indexGame">
                 {{ __('View Game') }}
             </x-secondary-button>
+            <x-secondary-button class="mr-auto" >
+                <a href="{{ route('generar.pdf') }}">  {{ __('View PDF') }}</a>
+            </x-secondary-button>
+
 
         </div>
         <div class="lg:px-8 ">

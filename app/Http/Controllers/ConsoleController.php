@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Console;
+use Dompdf\Dompdf;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class ConsoleController extends Controller
@@ -97,5 +99,16 @@ class ConsoleController extends Controller
 
         $console->delete();
         
+    }
+
+    public function generarPDF()
+    {
+        $data = ["Información a mostrar de Consoles"]; // Puedes pasar datos a tu vista si es necesario
+        $view = View('console.index' , $data);
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($view->render());
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+        return $dompdf->stream('CapturaConsoles.pdf');
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ConsoleController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -19,7 +20,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('console', App\Http\Controllers\ConsoleController::class)
+Route::resource('console', ConsoleController::class)
 ->except(['show'])
 ->middleware('auth');
 
@@ -44,3 +45,6 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+Route::get('/generar-pdf', [ConsoleController::class, 'generarPdf'])->name('generar.pdf');
+
